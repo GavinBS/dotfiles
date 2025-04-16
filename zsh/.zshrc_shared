@@ -1,0 +1,67 @@
+
+set_proxy_v2ray() {
+  export http_proxy="http://127.0.0.1:20171"
+  export https_proxy="http://127.0.0.1:20171"
+  echo "Proxy settings have been set."
+}
+
+set_proxy_v2rayn() {
+  export http_proxy="http://127.0.0.1:10808"
+  export https_proxy="http://127.0.0.1:10808"
+  echo "Proxy settings have been set."
+}
+
+clear_proxy() {
+  unset http_proxy
+  unset https_proxy
+  echo "Proxy settings have been cleared."
+}
+
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+
+# 历史记录文件
+HISTFILE=~/.zsh_history
+# 历史记录条数
+HISTSIZE=10000
+SAVEHIST=10000
+# 追加模式写入历史，避免历史丢失
+setopt APPEND_HISTORY
+# 命令执行后立即追加到历史文件，而不是退出时才写入
+setopt INC_APPEND_HISTORY
+# 避免重复的命令被写入历史
+setopt HIST_IGNORE_DUPS
+# 避免相同的连续命令被存入历史
+setopt HIST_IGNORE_ALL_DUPS
+# 允许多终端共享历史
+setopt SHARE_HISTORY
+
+export LLM_KEY=NONE
+export EDITOR=nvim
+export VISUAL=nvim
+
+
+# export SQL_EDITOR=nvim
+
+
+alias lgi=lazygit
+alias ldo=lazydocker
+
+# Snippet
+# zinit snippet https://gist.githubusercontent.com/hightemp/5071909/raw/
+zinit snippet ~/.zinit_snippet
+
+export PATH=$PATH:$HOME/go/bin
+
+# export GOROOT="/usr/lib/go-1.23"
+# export GOPATH=$HOME/go
+# export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
