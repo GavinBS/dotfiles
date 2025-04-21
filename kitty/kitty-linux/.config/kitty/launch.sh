@@ -22,23 +22,6 @@ setup_config() {
       ;;
     esac
 
-  elif [ -n "${SWAYSOCK:-}" ]; then
-    # elif [ -n "$SWAYSOCK" ]; then
-    # 这里简单使用 grep 提取第一个匹配的分辨率，具体情况可根据 swaymsg 输出调整
-    resolution=$(swaymsg -t get_outputs | grep -oE '[0-9]+x[0-9]+' | head -n1)
-
-    case "$resolution" in
-    "3840x2160")
-      config_file="$HOME/.config/kitty/kitty-sway-4k.conf"
-      ;;
-    "1920x1080")
-      config_file="$HOME/.config/kitty/kitty-sway-1080p.conf"
-      ;;
-    *)
-      config_file="$HOME/.config/kitty/kitty.conf"
-      ;;
-    esac
-
   elif command -v i3-msg >/dev/null 2>&1; then
     # i3wm 检测：使用 xrandr 获取当前分辨率（需在 X 环境下）
     resolution=$(xrandr | awk '/\*/ {print $1; exit}')
