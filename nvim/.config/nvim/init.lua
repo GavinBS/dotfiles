@@ -706,8 +706,9 @@ require('lazy').setup({
               },
             },
           },
+          root_makers = { 'pyproject.toml' },
         },
-
+        --
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -932,6 +933,33 @@ require('lazy').setup({
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
     end,
+  },
+
+  {
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/plenary.nvim',
+    },
+
+    config = function()
+      require('telescope').load_extension 'lazygit'
+    end,
+
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
   },
 
   {
