@@ -167,9 +167,12 @@ alias lcf="rename 'y/A-Z/a-z/' "
 alias ucf="rename 'y/a-z/A-Z/' "
 
 # Vim
-alias v='nvim'
-alias vi='nvim'
-alias vim='nvim'
+alias v='vim'
+alias vi='vim'
+
+# Nvim
+alias nv='nvim'
+alias nvi='nvim'
 
 # Tmux
 alias {ton,tn}='tmux set -g mode-mouse on'
