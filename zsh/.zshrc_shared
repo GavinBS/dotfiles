@@ -14,6 +14,8 @@ setopt HIST_IGNORE_ALL_DUPS
 # 允许多终端共享历史
 setopt SHARE_HISTORY
 
+export TLDR_LANGUAGE=zh
+
 export LLM_KEY=NONE
 export EDITOR=nvim
 export VISUAL=nvim
@@ -24,6 +26,12 @@ OS=`echo \`uname\` | tr '[:upper:]' '[:lower:]'`
 [ "$OS" = "windowsnt" ] && OS_WIN="yes"
 [ "$OS" = "darwin" ]    && OS_MAC="yes"
 [ "$OS" = "linux" ]     && OS_LIN="yes"
+
+set_socks() {
+  export http_proxy="socks5h://127.0.0.1:1080"
+  export https_proxy="socks5h://127.0.0.1:1080"
+  echo "Proxy settings have been set."
+}
 
 set_v2raya() {
   export http_proxy="http://127.0.0.1:20171"
