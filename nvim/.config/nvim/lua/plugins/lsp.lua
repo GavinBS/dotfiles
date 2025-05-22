@@ -160,33 +160,34 @@ return {
     local servers = {
       -- clangd = {},
       -- gopls = {},
-      pyright = {
-        -- cmd = { 'pyright-langserver', '--stdio' },
-        -- filetypes = { 'python' },
-        -- settings = {
-        --   python = {
-        --     analysis = {
-        --       -- typeCheckingMode = 'off',
-        --       autoSearchPaths = true,
-        --       useLibraryCodeForTypes = true,
-        --     },
-        --   },
-        -- },
-      },
-
-      -- basedpyright = {
-      --   settings = {
-      --     basedpyright = {
-      --       analysis = {
-      --         diagnosticMode = 'openFilesOnly',
-      --         typeCheckingMode = 'off',
-      --         autoSearchPaths = true,
-      --         useLibraryCodeForTypes = true,
-      --       },
+      -- pyright = {
+      -- root_makers = { 'pyproject.toml' },
+      -- cmd = { 'pyright-langserver', '--stdio' },
+      -- filetypes = { 'python' },
+      -- settings = {
+      --   python = {
+      --     analysis = {
+      --       -- typeCheckingMode = 'off',
+      --       autoSearchPaths = true,
+      --       useLibraryCodeForTypes = true,
       --     },
       --   },
-      --   root_makers = { 'pyproject.toml', 'pyrightconfig.json' },
       -- },
+      -- },
+
+      basedpyright = {
+        --   settings = {
+        --     basedpyright = {
+        --       analysis = {
+        --         diagnosticMode = 'openFilesOnly',
+        --         typeCheckingMode = 'off',
+        --         autoSearchPaths = true,
+        --         useLibraryCodeForTypes = true,
+        --       },
+        --     },
+        --   },
+        -- root_makers = { 'pyproject.toml', 'pyrightconfig.json' },
+      },
       --
       -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
