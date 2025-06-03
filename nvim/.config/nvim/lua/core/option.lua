@@ -1,8 +1,3 @@
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
 -- Make line numbers default
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -10,7 +5,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 -- visual line wrapping
-vim.o.wrap = false
+vim.o.wrap = true
 
 -- indent
 vim.o.expandtab = true
