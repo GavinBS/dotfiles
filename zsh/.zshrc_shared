@@ -39,8 +39,8 @@ export VISUAL=nvim
 # export SQL_EDITOR=nvim
 
 eval "$(starship init zsh)"
-
 eval "$(zoxide init zsh)"
+eval $(thefuck --alias)
 
 # Alias & Snippet
 OS=`echo \`uname\` | tr '[:upper:]' '[:lower:]'`
