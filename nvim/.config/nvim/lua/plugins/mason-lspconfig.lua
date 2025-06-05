@@ -7,6 +7,7 @@ return {
         'lua_ls',
         'basedpyright',
         'bashls',
+        'postgres_lsp',
       },
     }
   end,

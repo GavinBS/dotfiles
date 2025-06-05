@@ -1,6 +1,7 @@
 vim.lsp.enable 'lua_ls'
 vim.lsp.enable 'basedpyright'
 vim.lsp.enable 'bashls'
+vim.lsp.enable 'postgres_lsp'
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
