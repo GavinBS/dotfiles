@@ -3,13 +3,17 @@
 eval "$(starship init zsh)"
 
 # uv
-. "$HOME/.local/bin/env"
+if [[ -f "$HOME/.local/bin/env" ]];then
+    . "$HOME/.local/bin/env"
+fi
 
 # zoxide
 eval "$(zoxide init zsh)"
 
 # thefuck
-eval $(thefuck --alias)
+if command -v thefuck >/dev/null 2>&1; then
+    eval $(thefuck --alias)
+fi
 
 # ─────────────────────────────────────────────────────────────────────────────
 # History Settings
@@ -286,15 +290,18 @@ unset_proxy() {
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Yazi
-function y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "$@" --cwd-file="$tmp"
-    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        builtin cd -- "$cwd"
-    fi
-    rm -f -- "$tmp"
-}
 
+if command -v yazi >/dev/null 2>&1; then
+    function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+        yazi "$@" --cwd-file="$tmp"
+        if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+            builtin cd -- "$cwd"
+        fi
+        rm -f -- "$tmp"
+    }
+
+fi
 
 # ─────────────────────────────────────────────────────────────────────────────
 

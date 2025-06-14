@@ -30,6 +30,7 @@ return {
             'isort',
             'jq',
             'shfmt',
+            'beautysh',
           },
           auto_update = false,
           run_on_start = true,
