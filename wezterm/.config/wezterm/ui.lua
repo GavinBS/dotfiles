@@ -1,6 +1,20 @@
-return function(wezterm, config)
+return function(wezterm, platform, config)
+	if platform.is_win then
+		config.initial_cols = 120
+		config.initial_rows = 35
+		config.font_size = 17
+	elseif platform.is_mac then
+		config.initial_cols = 120
+		config.initial_rows = 35
+		config.font_size = 17
+		config.macos_window_background_blur = 30
+	elseif platform.is_linux then
+		config.initial_cols = 120
+		config.initial_rows = 35
+		config.font_size = 17
+	end
+
 	config.font = wezterm.font("JetBrainsMono Nerd Font Mono", { weight = "Regular" })
-	config.font_size = 17
 
 	config.color_scheme = "Dracula"
 	config.colors = {

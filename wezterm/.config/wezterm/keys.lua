@@ -5,5 +5,10 @@ return function(wezterm, config)
 			mods = "SHIFT|CTRL",
 			action = wezterm.action.ToggleFullScreen,
 		},
+		{
+			key = "l",
+			mods = "CTRL|SHIFT",
+			action = wezterm.action.ShowLauncher,
+		},
 	}
 end

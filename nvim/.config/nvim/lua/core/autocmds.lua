@@ -6,6 +6,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'dashboard',
+  callback = function()
+    local builtin = require 'telescope.builtin'
+
+    vim.keymap.set('n', '<leader>sf', builtin.find_files, {
+      desc = '[S]earch [F]iles',
+      buffer = true, -- ✅ 只作用于 dashboard buffer
+      noremap = true,
+      silent = true,
+    })
+  end,
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
   callback = function(event)

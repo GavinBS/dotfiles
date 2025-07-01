@@ -76,6 +76,9 @@ fi
 alias ..='cd ..'
 alias cd='z'
 
+alias vi='nvim'
+alias vim='nvim'
+
 # ls variants
 alias ls='eza --icons=always'
 alias la='eza -a --icons=always'
