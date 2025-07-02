@@ -1,47 +1,113 @@
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
-  opts = {
-    theme = 'doom',
-    disable_move = false,
 
-    shuffle_letter = false,
-    config = {
+  config = function()
+    local datetime = os.date '%Y-%m-%d %H:%M'
+    local weekday = os.date '%A'
 
-      header = {
-        ' ___________.____    _____.___.____   ____.___   _____   ',
-        ' \\_   _____/|    |   \\__  |   |\\   \\ /   /|   | /     \\  ',
-        '  |    __)  |    |    /   |   | \\   Y   / |   |/  \\ /  \\ ',
-        '  |     \\   |    |___ \\____   |  \\     /  |   /    Y    \\',
-        '  \\___  /   |_______ \\/ ______|   \\___/   |___\\____|__  /',
-        '      \\/            \\/\\/                              \\/ ',
-      },
+    require('dashboard').setup {
+      theme = 'hyper',
+      shortcut_type = 'letter',
+      shuffle_letter = false,
+      change_to_vcs_root = false,
 
-      center = {
-        {
-          icon = ' ',
-          icon_hl = 'Title',
-          desc = 'Find File           ',
-          desc_hl = 'String',
-          key = ' ',
-          keymap = 'SPC s f',
-          key_hl = 'Number',
-          key_format = ' %s',
-          action = '',
+      config = {
+        header = {
+          '🚀 Welcome back to FLYVIM, ☕ Have a good day',
+          '',
+          ' ___________.____    _____.___.____   ____.___   _____   ',
+          ' \\_   _____/|    |   \\__  |   |\\   \\ /   /|   | /     \\  ',
+          '  |    __)  |    |    /   |   | \\   Y   / |   |/  \\ /  \\ ',
+          '  |     \\   |    |___ \\____   |  \\     /  |   /    Y    \\',
+          '  \\___  /   |_______ \\/ ______|   \\___/   |___\\____|__  /',
+          '      \\/            \\/\\/                              \\/ ',
+          '',
         },
-        -- {
-        --   icon = ' ',
-        --   desc = 'Find Dotfiles',
-        --   key = 'f',
-        --   keymap = 'SPC f d',
-        --   key_format = ' %s', -- remove default surrounding `[]`
-        --   action = 'lua print(3)',
-        -- },
+
+        disable_move = true,
+
+        shortcut = {
+          {
+            icon = ' ',
+            desc = 'Find File',
+            group = 'Label',
+            key = 'f',
+            action = function()
+              require('telescope.builtin').find_files()
+            end,
+          },
+          {
+            icon = '󰱼 ',
+            desc = 'Live Grep',
+            group = 'Label',
+            key = 'g',
+            action = function()
+              require('telescope.builtin').live_grep()
+            end,
+          },
+          {
+            icon = ' ',
+            desc = 'Neovim Config',
+            group = 'Label',
+            key = 'n',
+            action = function()
+              require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
+            end,
+          },
+          {
+            icon = ' ',
+            desc = 'Help Tags',
+            group = 'Label',
+            key = 'h',
+            action = function()
+              require('telescope.builtin').help_tags()
+            end,
+          },
+          {
+            icon = '󰌶 ',
+            desc = 'Keymaps',
+            group = 'Label',
+            key = 'm',
+            action = function()
+              require('telescope.builtin').keymaps()
+            end,
+          },
+        },
+
+        packages = { enable = true },
+
+        project = {
+          enable = true,
+          limit = 5,
+          icon = '📁 ',
+          label = ' Recent Projects',
+          action = function(path)
+            require('telescope.builtin').find_files { cwd = path }
+          end,
+        },
+
+        mru = {
+          enable = true,
+          limit = 10,
+          icon = '📄 ',
+          label = ' Recent Files',
+          cwd_only = false,
+        },
+
+        footer = {
+          '',
+          '🗓  ' .. weekday .. '  ' .. datetime,
+        },
       },
 
-      footer = { '🚀 Welcome to FLYVIM, have a good day ☕' },
-      vertical_center = false,
-    },
-  },
+      hide = {
+        statusline = true,
+        tabline = true,
+        winbar = true,
+      },
+    }
+  end,
+
   dependencies = { { 'nvim-tree/nvim-web-devicons' } },
 }

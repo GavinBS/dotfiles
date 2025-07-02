@@ -23,6 +23,7 @@ return {
         'postgres_lsp',
         'html',
         'cssls',
+        'docker_compose_language_service',
       },
     }
 
