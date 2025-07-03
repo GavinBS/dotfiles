@@ -47,15 +47,6 @@ return {
             end,
           },
           {
-            icon = ' ',
-            desc = 'Neovim Config',
-            group = 'Label',
-            key = 'n',
-            action = function()
-              require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
-            end,
-          },
-          {
             icon = ' ',
             desc = 'Help Tags',
             group = 'Label',
@@ -71,6 +62,15 @@ return {
             key = 'm',
             action = function()
               require('telescope.builtin').keymaps()
+            end,
+          },
+          {
+            icon = ' ',
+            desc = 'Neovim Config',
+            group = 'Label',
+            key = 'n',
+            action = function()
+              require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
             end,
           },
         },
