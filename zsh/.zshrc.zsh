@@ -1,5 +1,5 @@
 
-# PROMPT='%F{cyan}%D{%H:%M}%f %F{green}%~%f '
+# PROMPT='%F{yellow}%n@%m%f %F{cyan}%D{%H:%M}%f %F{green}%~%f ❯ '
 
 # ─────────────────────────────────────────────────────────────────────────────
 # starship
