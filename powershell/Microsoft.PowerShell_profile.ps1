@@ -25,37 +25,29 @@ function y {
     Remove-Item -Path $tmp
 }
 
-function Set-HttpProxy {
+function excel {
     param (
-        [ValidateSet("on", "off")]
-        [string]$Mode = "on",
-
-        [string]$ProxyHost = "127.0.0.1",
-        [int]$Port = 10808
+        [string]$Path
     )
-
-    if ($Mode -eq "on") {
-        $proxyUrl = "http://${ProxyHost}:${Port}"
-        Write-Host "启用 HTTP 代理: $proxyUrl"
-
-        # 设置当前 PowerShell 环境变量（curl、pip、npm 等有效）
-        $env:HTTP_PROXY  = $proxyUrl
-        $env:HTTPS_PROXY = $proxyUrl
-
-        # 设置系统级代理（winget、IE、部分 WinAPI 应用生效）
-        netsh winhttp set proxy "${ProxyHost}:${Port}" | Out-Null
+    $excelPath = "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE"
+    if (Test-Path $excelPath) {
+        Start-Process $excelPath -ArgumentList $Path
+    } else {
+        Write-Error "找不到 EXCEL.EXE，请检查路径。"
     }
-    else {
-        Write-Host "关闭代理"
+}
 
-        Remove-Item Env:HTTP_PROXY  -ErrorAction SilentlyContinue
-        Remove-Item Env:HTTPS_PROXY -ErrorAction SilentlyContinue
 
-        netsh winhttp reset proxy | Out-Null
-    }
+function Set-Proxy {
+    $Env:http_proxy = "http://127.0.0.1:10808"
+    $Env:https_proxy = "http://127.0.0.1:10808"
+    Write-Host "代理已设置为 http://127.0.0.1:10808"
+}
 
-    Write-Host "`n当前 winhttp 状态："
-    netsh winhttp show proxy
+function Unset-Proxy {
+    Remove-Item Env:http_proxy -ErrorAction SilentlyContinue
+    Remove-Item Env:https_proxy -ErrorAction SilentlyContinue
+    Write-Host "代理已取消"
 }
 
 
