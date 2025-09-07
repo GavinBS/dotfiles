@@ -1,15 +1,3 @@
-OS=$(uname | tr '[:upper:]' '[:lower:]')
-[ "$OS" = "darwin" ] && OS_MAC="yes"
-[ "$OS" = "linux" ] && {
-    OS_LIN="yes"
-    grep -qiE 'microsoft|wsl' /proc/version 2>/dev/null && OS_WSL="yes"
-    if [ -f /etc/os-release ]; then
-        . /etc/os-release
-        if echo "$ID $ID_LIKE" | grep -qi debian; then
-            OS_DEBIAN="yes"
-        fi
-    fi
-}
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
@@ -26,27 +14,15 @@ PROMPT="%F{yellow}%n@%m%f %F{cyan}%D{%H:%M}%f %F{green}%~%f %F{blue}❯%f "
 
 eval "$(zoxide init zsh)"
 
-if [ -n "$OS_MAC" ]; then
-    ZSH_AUTOSUGGESTIONS_PATH="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    ZSH_HIGHLIGHT_PATH="$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-if [ -n "$OS_DEBIAN" ]; then
-    ZSH_AUTOSUGGESTIONS_PATH="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    ZSH_HIGHLIGHT_PATH="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
-
-[[ -f "$ZSH_AUTOSUGGESTIONS_PATH" ]] && source "$ZSH_AUTOSUGGESTIONS_PATH"
-[[ -f "$ZSH_HIGHLIGHT_PATH" ]] && source "$ZSH_HIGHLIGHT_PATH"
-
-if [ -n "$OS_DEBIAN" ]; then
-    alias bat="batcat"
-fi
-
+# alias bat="batcat"
 alias cd="z"
 alias ls="eza"
-alias lzg="lazygit"
-alias lzd="lazydocker"
+alias lg="lazygit"
 
 # uv
 if [[ -f "$HOME/.local/bin/env" ]];then
@@ -99,25 +75,4 @@ if command -v yazi >/dev/null 2>&1; then
         rm -f -- "$tmp"
     }
 fi
-
-
-# Output
-alias lcase="tr '[:upper:]' '[:lower:]'"
-alias ucase="tr '[:lower:]' '[:upper:]'"
-
-# DNS
-alias {hostname2ip,h2ip}='dig +short'
-
-# Clipboard
-[ -n "$OS_MAC" ] && alias getcb='pbpaste'
-[ -n "$OS_WIN" ] && alias getcb='cat /dev/clipboard'
-[ -n "$OS_LIN" ] && alias getcb='xclip -o'
-
-# Wget
-alias wgetncc='wget --no-check-certificate'
-alias wgetc='wget `getcb`'
-
-# Utils
-alias sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
-alias ytmp3='youtube-dl --extract-audio --audio-format mp3 '
 
