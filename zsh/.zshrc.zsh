@@ -21,8 +21,25 @@ source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 
 # alias bat="batcat"
 alias cd="z"
-alias ls="eza"
 alias lg="lazygit"
+
+r() {
+    # 创建临时文件
+    tmp="$(mktemp)"
+
+    # 启动 ranger，并把最后所在目录写入临时文件
+    ranger --choosedir="$tmp" "$@"
+
+    # 确保临时文件存在
+    if [ -f "$tmp" ]; then
+        # 读出 ranger 退出时的目录
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+
+        # 如果目录有效，并且不是当前目录，就 cd 进去
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
 
 # uv
 if [[ -f "$HOME/.local/bin/env" ]];then
